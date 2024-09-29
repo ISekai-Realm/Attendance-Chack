@@ -27,16 +27,12 @@ public class AttendanceDbContext {
 
     public void initializeDatabase() {
         try {
-            Class.forName("org.sqlite.JDBC");
-
             fileUtils.makeDbFile();
         connect();
 
         Statement stmt = connection.createStatement();
             stmt.executeUpdate(createTableQuery());
         } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -63,5 +59,16 @@ public class AttendanceDbContext {
                     "max_login_stack INTEGER NOT NULL" +
                 ");";
 
+    }
+    //TODO: 테이블 다시 만들기
+    private String createMonthlyTableQery() {
+        return "CREATE TABLE IF NOT EXIST monthly_attendance (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "player_uuid TEXT NOT NULL," +
+                "month INTEGER NOT NULL," +
+                "year INTEGER NOT NULL," +
+                "login_stack INTEGER NOT NULL," +
+                "max_login_stack INTEGER NOT NULL" +
+                ");";
     }
 }
