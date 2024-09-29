@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "attendancecheck",
+  "version": "${version}",
+  "name": "AttendanceCheck",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/attendancecheck/icon.png",
+  "environment": "server",
+  "entrypoints": {
+    "main": [
+      "com.isekai.attendancecheck.Attendancecheck"
+    ]
+  },
+  "mixins": [
+    "attendancecheck.mixins.json",
+    {
+      "config": "attendancecheck.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
