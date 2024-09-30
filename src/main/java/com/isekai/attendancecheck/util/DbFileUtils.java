@@ -18,7 +18,6 @@ public class DbFileUtils {
         this.dbName = dbName;
         this.dbFolderPath = FabricLoader.getInstance().getGameDir().resolve("db");
     }
-
     /**
      * Create the DB folder if it doesn't exist
      *

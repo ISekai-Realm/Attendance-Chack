@@ -1,7 +1,15 @@
 package com.isekai.attendancecheck.database;
 
 import com.isekai.attendancecheck.Attendancecheck;
+import com.isekai.attendancecheck.database.entity.UserAttendance;
+import com.isekai.attendancecheck.database.entity.UserMonthlyAttendance;
 import com.isekai.attendancecheck.util.DbFileUtils;
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.DaoManager;
+import com.j256.ormlite.jdbc.JdbcConnectionSource;
+import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.table.TableUtils;
+import lombok.Getter;
 import net.fabricmc.loader.api.FabricLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,40 +22,23 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.UUID;
 
 import static com.isekai.attendancecheck.Attendancecheck.LOGGER;
 
 public class AttendanceDbContext {
-    private Connection connection;
-    private DbFileUtils fileUtils;
 
-    public AttendanceDbContext() {
-        String dbFileName = "attendance.db";
-        this.fileUtils = new DbFileUtils(dbFileName);
-    }
+    private Dao<UserAttendance, UUID> userAttendanceDao;
+    private Dao<UserMonthlyAttendance,Integer> userMonthlyAttendanceDao;
 
-    public void initializeDatabase() {
+    public AttendanceDbContext(ConnectionSource connectionSource){
         try {
-            fileUtils.makeDbFile();
-            connect();
-
-            Statement stmt = connection.createStatement();
-            stmt.executeUpdate(createTableQuery());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void connect() {
-        try {
-            connection = DriverManager.getConnection(connectionURL());
+            DaoManager.createDao(connectionSource, UserAttendance.class);
+            DaoManager.createDao(connectionSource, UserMonthlyAttendance.class);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
 
-    private String connectionURL() {
-        return "jdbc:sqlite:" + fileUtils.getDbFile().getAbsolutePath();
-    }
 }

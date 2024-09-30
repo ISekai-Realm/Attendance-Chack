@@ -1,6 +1,7 @@
 package com.isekai.attendancecheck;
 
 import com.isekai.attendancecheck.database.AttendanceDbContext;
+import com.isekai.attendancecheck.database.DatabaseManager;
 import com.isekai.attendancecheck.event.ServerEvent;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.ServerLoginConnectionEvents;
@@ -20,7 +21,7 @@ public class Attendancecheck implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        var db = new AttendanceDbContext();
+        var db = new DatabaseManager();
         db.initializeDatabase();
         ServerEvent.Init();
     }
