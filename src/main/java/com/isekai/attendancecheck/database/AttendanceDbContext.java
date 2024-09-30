@@ -20,6 +20,7 @@ import static com.isekai.attendancecheck.Attendancecheck.LOGGER;
 public class AttendanceDbContext {
     private Connection connection;
     private DbFileUtils fileUtils;
+
     public AttendanceDbContext() {
         String dbFileName = "attendance.db";
         this.fileUtils = new DbFileUtils(dbFileName);
@@ -28,9 +29,9 @@ public class AttendanceDbContext {
     public void initializeDatabase() {
         try {
             fileUtils.makeDbFile();
-        connect();
+            connect();
 
-        Statement stmt = connection.createStatement();
+            Statement stmt = connection.createStatement();
             stmt.executeUpdate(createTableQuery());
         } catch (SQLException e) {
             e.printStackTrace();
@@ -38,7 +39,7 @@ public class AttendanceDbContext {
     }
 
     public void connect() {
-        try{
+        try {
             connection = DriverManager.getConnection(connectionURL());
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -48,27 +49,5 @@ public class AttendanceDbContext {
 
     private String connectionURL() {
         return "jdbc:sqlite:" + fileUtils.getDbFile().getAbsolutePath();
-    }
-
-    private String createTableQuery() {
-        return "CREATE TABLE IF NOT EXISTS attendance (" +
-                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "player_uuid TEXT NOT NULL," +
-                    "last_login DATE NOT NULL," +
-                    "login_stack INTEGER NOT NULL," +
-                    "max_login_stack INTEGER NOT NULL" +
-                ");";
-
-    }
-    //TODO: 테이블 다시 만들기
-    private String createMonthlyTableQery() {
-        return "CREATE TABLE IF NOT EXIST monthly_attendance (" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "player_uuid TEXT NOT NULL," +
-                "month INTEGER NOT NULL," +
-                "year INTEGER NOT NULL," +
-                "login_stack INTEGER NOT NULL," +
-                "max_login_stack INTEGER NOT NULL" +
-                ");";
     }
 }

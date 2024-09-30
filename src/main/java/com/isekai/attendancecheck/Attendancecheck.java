@@ -1,7 +1,12 @@
 package com.isekai.attendancecheck;
 
 import com.isekai.attendancecheck.database.AttendanceDbContext;
+import com.isekai.attendancecheck.event.ServerEvent;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.networking.v1.ServerLoginConnectionEvents;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.minecraft.world.WorldAccess;
+import net.minecraft.world.WorldEvents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +22,9 @@ public class Attendancecheck implements ModInitializer {
     public void onInitialize() {
         var db = new AttendanceDbContext();
         db.initializeDatabase();
-
+        ServerEvent.Init();
     }
+
+
+
 }
