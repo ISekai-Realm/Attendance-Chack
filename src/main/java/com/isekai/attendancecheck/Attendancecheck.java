@@ -23,7 +23,9 @@ public class Attendancecheck implements ModInitializer {
     public void onInitialize() {
         var db = new DatabaseManager();
         db.initializeDatabase();
-        ServerEvent.Init();
+        ServerEvent.Init(db.getConnectionSource());
+
+
     }
 
 

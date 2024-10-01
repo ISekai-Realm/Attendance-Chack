@@ -1,14 +1,19 @@
 package com.isekai.attendancecheck.database.entity;
 
-import com.j256.ormlite.dao.ForeignCollection;
+import com.j256.ormlite.dao.LazyForeignCollection;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
+import java.util.Collection;
 import java.util.Date;
 
+@Builder
+@AllArgsConstructor
 @Data
 @DatabaseTable(tableName = "user_attendance")
 public class UserAttendance {
@@ -21,7 +26,7 @@ public class UserAttendance {
     private String userName;
 
     @ForeignCollectionField
-    private ForeignCollection<UserMonthlyAttendance> userMonthlyAttendance;
+    private Collection<UserMonthlyAttendance> userMonthlyAttendance;
 
     @DatabaseField(dataType = DataType.DATE)
     private Date lastLogin;

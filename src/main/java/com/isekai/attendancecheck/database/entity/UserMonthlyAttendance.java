@@ -2,10 +2,13 @@ package com.isekai.attendancecheck.database.entity;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
-import java.util.UUID;
 
+@Builder
+@AllArgsConstructor
 @Data
 @DatabaseTable(tableName = "user_monthly_attendance")
 public class UserMonthlyAttendance {

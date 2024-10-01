@@ -10,11 +10,11 @@ import lombok.Getter;
 
 import java.sql.SQLException;
 
+@Getter
 public class DatabaseManager {
     private static final String dbFileName = "attendance.db";
     private static final DbFileUtils utils = new DbFileUtils(dbFileName);
 
-    @Getter
     private ConnectionSource connectionSource;
 
     public DatabaseManager() {
