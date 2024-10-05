@@ -34,7 +34,7 @@ public class UserAttendance {
     @DatabaseField(dataType = DataType.DATE)
     private Date createAt;
     /*
-    * 총 로그인 횟수
+    * 해당 월 총 로그인 횟수
     */
     @DatabaseField
     private int loginCount;
@@ -52,6 +52,13 @@ public class UserAttendance {
      */
     @DatabaseField
     private int maxLoginStack;
+
+
+    /**
+     * 총 로그인 횟수
+     */
+    @DatabaseField
+    private int totalLoginCount;
 }
 
 
